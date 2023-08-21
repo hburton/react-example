@@ -1,4 +1,4 @@
-'use client'; 
+'use client';
 import React, { useState, useEffect } from 'react'
 
 export default function Home() {
@@ -34,15 +34,31 @@ export default function Home() {
   }
 
   return (
-    <main>
-      <h1>Test Kit Search</h1>
-      <input type="text" onChange={onSearchValueChange}/>
-      <button onChange={e => {}}>Search</button>
-      <ul>
+    <main className="p-4">
+      <h1 className="text-2xl font-bold mb-4">Test Kit Search</h1>
+      <div className="mb-4 flex">
+        <br />
+        <input
+          type="text"
+          onChange={onSearchValueChange}
+          className="border p-2 rounded shadow-sm flex-grow mr-2"
+          placeholder="Enter Label ID..."
+        />
+        <button
+          onClick={e => { }}
+          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+        >
+          Search
+        </button>
+      </div>
+      <ul className="mt-2 border border-gray-300 rounded shadow-sm">
         {suggestions.map((suggestion) => (
-          <li key={suggestion}>{suggestion}</li>
+          <li key={suggestion} className="border-b last:border-b-0 p-2 hover:bg-gray-100">
+            {suggestion}
+          </li>
         ))}
       </ul>
     </main>
   )
+
 }
