@@ -2,7 +2,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Prerequisites
 
-This project was built and tested on Node v18.17.1, but I believe that it should work in an version of Node 18. 
+This project was built and tested on Node v18.17.1, but I believe that it should work in any version of Node 18. 
 
 ## Getting Started
 
