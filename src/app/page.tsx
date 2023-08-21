@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
   import { Kit } from '@/services/kit-data'
 
 // page.tsx is the main page of the application. For the purposes of this demo we don't really need a second page.
+// TODO: Loading states.
 export default function Home() {
   const [searchValue, setSearchValue] = useState("");
   const [suggestions, setSuggestions] = useState<string[]>([]);
@@ -21,13 +22,13 @@ export default function Home() {
     }
 
     let suggestions = await fetchSuggestions(searchValue);
-    await setSuggestions(suggestions);
+    setSuggestions(suggestions);
   }
 
   async function onSearchClicked() {
     setSuggestions([]); // clear suggestions
     let kit = await fetchKit(searchValue);
-    await setKit(kit);
+    setKit(kit);
   }
 
   async function onSuggestionClicked(labelId: string) {
