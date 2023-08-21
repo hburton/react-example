@@ -27,7 +27,6 @@ export default function Home() {
   async function onSearchClicked() {
     setSuggestions([]); // clear suggestions
     let kit = await fetchKit(searchValue);
-    console.log(kit);
     await setKit(kit);
   }
 
@@ -98,12 +97,10 @@ async function fetchSuggestions(searchValue: string): Promise<string[]> {
     }),
   })
   var resBody = await response.json();
-  console.log(resBody.suggestedLabelIds);
   return resBody.suggestedLabelIds;
 }
 
 async function fetchKit(labelId: string): Promise<Kit | null> {
-  console.log(`/api/kits/${labelId}`)
   const response = await fetch(`/api/kits/${labelId}`, {
     method: 'GET'
   })
