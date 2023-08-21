@@ -5,7 +5,24 @@ export default {
       .sort((a, b) => a.id - b.id)
       .slice(0, 10)
       .map(kit => kit.label_id);
+  },
+
+  getKit: async (labelId: string): Promise<Kit | null> => {
+    let kit = kits.find(kit => kit.label_id === labelId);
+    return kit ? toKit(kit) : null;
   }
+}
+
+function toKit(kit: any): Kit {
+  return {
+    labelId: kit.label_id,
+    shippingTrackingCode: kit.shipping_tracking_code
+  };
+}
+
+export interface Kit {
+  labelId: string;
+  shippingTrackingCode: string;
 }
 
 // TODO: Fetch data from external system instead of hardcoding label ids dataset.
