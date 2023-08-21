@@ -2,7 +2,7 @@ export default {
   getSuggestedLabelIds: async (startsWith: string): Promise<string[]> => {
     return kits
       .filter(kit => kit.label_id.startsWith(startsWith))
-      .sort((a, b) => a.id - b.id)
+      .sort((a, b) => b.id - a.id)
       .slice(0, 10)
       .map(kit => kit.label_id);
   },
