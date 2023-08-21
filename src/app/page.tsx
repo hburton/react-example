@@ -16,7 +16,7 @@ export default function Home() {
 
   async function updateSuggestions(searchValue: string) {
     if (searchValue.length == 0) {
-      setSuggestions([]);
+      setSuggestions([]); // clear suggestions
       return;
     }
 
@@ -24,10 +24,16 @@ export default function Home() {
     await setSuggestions(suggestions);
   }
 
-  async function searchKit() {
+  async function onSearchClicked() {
+    setSuggestions([]); // clear suggestions
     let kit = await fetchKit(searchValue);
     console.log(kit);
     await setKit(kit);
+  }
+
+  async function onSuggestionClicked(labelId: string) {
+    setSuggestions([]); // clear suggestions
+    setSearchValue(labelId);
   }
 
   // TODO: Extract separate components. 
@@ -49,7 +55,7 @@ export default function Home() {
               placeholder="Enter Label ID..."
             />
             <button
-              onClick={searchKit}
+              onClick={onSearchClicked}
               className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200 focus:ring-opacity-50"
             >
               Search
@@ -58,7 +64,7 @@ export default function Home() {
           <ul className="mt-2 border border-gray-300 rounded shadow-sm">
             {suggestions.map((suggestion) => (
               <li 
-                onClick={e => { setSearchValue(suggestion) }}
+                onClick={e => { onSuggestionClicked(suggestion) }}
                 key={suggestion} 
                 className="border-b last:border-b-0 p-2 hover:bg-gray-100"
               >
@@ -68,10 +74,14 @@ export default function Home() {
           </ul>
         </div>      
         {/* Kit Info Component */}
-        <div className='flex-1 p-2'> 
-          <h2 className="text-xl font-bold">Kit Tracking Info:</h2>
-          <p>Label ID: {kit?.labelId}</p>
-          <p>Tracking #: {kit?.shippingTrackingCode}</p>
+        <div className="flex-1 p-6 bg-gray-100 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+          <h2 className="text-2xl font-bold mb-4 text-gray-800">Kit Tracking Info:</h2>
+          <p className="text-gray-700 mb-2">
+            <span className="font-semibold">Label ID:</span> {kit?.labelId}
+          </p>
+          <p className="text-gray-700">
+            <span className="font-semibold">Tracking #:</span> {kit?.shippingTrackingCode}
+          </p>
         </div>
       </div>
     </main>
