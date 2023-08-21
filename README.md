@@ -8,7 +8,7 @@ This project was built and tested on Node v18.17.1, but I believe that it should
 
 First, install dependencies with: 
 ```bash
-npm ci
+npm install
 ```
 
 Then, run the development server with:
