@@ -1,6 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-  import { Kit } from '@/services/kit-data'
+import { Kit } from '@/models';
+import ApiService from '@/client-services/api-service';
 
 // page.tsx is the main page of the application. For the purposes of this demo we don't really need a second page.
 // TODO: Loading states.
@@ -21,13 +22,13 @@ export default function Home() {
       return;
     }
 
-    let suggestions = await fetchSuggestions(searchValue);
+    let suggestions = await ApiService.fetchSuggestions(searchValue);
     setSuggestions(suggestions);
   }
 
   async function onSearchClicked() {
     setSuggestions([]); // clear suggestions
-    let kit = await fetchKit(searchValue);
+    let kit = await ApiService.fetchKit(searchValue);
     setKit(kit);
   }
 
@@ -36,15 +37,16 @@ export default function Home() {
     setSearchValue(labelId);
   }
 
-  // TODO: Extract separate components. 
+  // TODO: Extract separate components.
   return (
     <main className="p-4">
       <h1 className="text-2xl font-bold mb-4">Test Kit Search</h1>
-      
-      {/* Container, 50% each side horizonally displayed */}
-      <div className='flex'> 
+
+      {/* Container */}
+      <div className='flex'>
+
         {/* Kit Search Component. */}
-        <div className="flex-1 p-2"> 
+        <div className="flex-1 p-2">
           <div className="mb-4 flex">
             <br />
             <input
@@ -63,16 +65,17 @@ export default function Home() {
           </div>
           <ul className="mt-2 border border-gray-300 rounded shadow-sm">
             {suggestions.map((suggestion) => (
-              <li 
+              <li
                 onClick={e => { onSuggestionClicked(suggestion) }}
-                key={suggestion} 
+                key={suggestion}
                 className="border-b last:border-b-0 p-2 hover:bg-gray-100"
               >
                 {suggestion}
               </li>
             ))}
           </ul>
-        </div>      
+        </div>
+
         {/* Kit Info Component */}
         <div className="flex-1 p-6 bg-gray-100 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
           <h2 className="text-2xl font-bold mb-4 text-gray-800">Kit Tracking Info:</h2>
@@ -86,25 +89,4 @@ export default function Home() {
       </div>
     </main>
   )
-}
-
-// API Calls
-// TODO: Move api calls to a client service.
-async function fetchSuggestions(searchValue: string): Promise<string[]> {
-  const response = await fetch('/api/autocomplete', {
-    method: 'POST',
-    body: JSON.stringify({
-      searchValue,
-    }),
-  })
-  var resBody = await response.json();
-  return resBody.suggestedLabelIds;
-}
-
-async function fetchKit(labelId: string): Promise<Kit | null> {
-  const response = await fetch(`/api/kits/${labelId}`, {
-    method: 'GET'
-  })
-  var resBody = await response.json();
-  return resBody;
 }
