@@ -28,13 +28,18 @@ export default function Home() {
 
   async function onSearchClicked() {
     setSuggestions([]); // clear suggestions
-    let kit = await ApiService.fetchKit(searchValue);
-    setKit(kit);
+    updateKit(searchValue);
   }
 
   async function onSuggestionClicked(labelId: string) {
     setSuggestions([]); // clear suggestions
     setSearchValue(labelId);
+    updateKit(labelId);
+  }
+
+  async function updateKit(labelId: string) {
+    let kit = await ApiService.fetchKit(labelId);
+    setKit(kit);
   }
 
   // TODO: Extract separate components.
@@ -77,8 +82,8 @@ export default function Home() {
         </div>
 
         {/* Kit Info Component */}
-        <div className="flex-1 p-6 bg-gray-100 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
-          <h2 className="text-2xl font-bold mb-4 text-gray-800">Kit Tracking Info:</h2>
+        <div className="flex-1 p-6 bg-gray-100 rounded-lg">
+          <h2 className="text-2xl font-bold mb-4 text-gray-800">Kit Tracking Info</h2>
           <p className="text-gray-700 mb-2">
             <span className="font-semibold">Label ID:</span> {kit?.labelId}
           </p>
