@@ -22,7 +22,7 @@ export default function Home() {
       return;
     }
 
-    let suggestions = await ApiService.fetchSuggestions(searchValue);
+    let suggestions = await ApiService.autocompletePost(searchValue);
     setSuggestions(suggestions);
   }
 
@@ -38,7 +38,7 @@ export default function Home() {
   }
 
   async function updateKit(labelId: string) {
-    let kit = await ApiService.fetchKit(labelId);
+    let kit = await ApiService.kitsGet(labelId);
     setKit(kit);
   }
 

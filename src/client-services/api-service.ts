@@ -1,7 +1,7 @@
 import { Kit } from '@/models';
 
 export default {
-  fetchSuggestions: async function (searchValue: string): Promise<string[]> {
+  autocompletePost: async function (searchValue: string): Promise<string[]> {
     const response = await fetch('/api/autocomplete', {
       method: 'POST',
       body: JSON.stringify({
@@ -12,7 +12,7 @@ export default {
     return resBody.suggestedLabelIds;
   },
 
-  fetchKit: async function (labelId: string): Promise<Kit | null> {
+  kitsGet: async function (labelId: string): Promise<Kit | null> {
     const response = await fetch(`/api/kits/${labelId}`, {
       method: 'GET'
     })
