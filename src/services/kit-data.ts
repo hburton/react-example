@@ -1,3 +1,5 @@
+import { Kit } from '@/models';
+
 export default {
   getSuggestedLabelIds: async (startsWith: string): Promise<string[]> => {
     return kits
@@ -18,11 +20,6 @@ function toKit(kit: any): Kit {
     labelId: kit.label_id,
     shippingTrackingCode: kit.shipping_tracking_code
   };
-}
-
-export interface Kit {
-  labelId: string;
-  shippingTrackingCode: string;
 }
 
 // TODO: Fetch data from external system instead of hardcoding label ids dataset.
